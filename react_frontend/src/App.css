@@ -1,24 +1,116 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
+  --primary: #229954;
+  --secondary: #1F618D;
+  --accent: #F4D03F;
   --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --text-primary: #333333;
+  --grid-size: 20px;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+/* Game specific styles */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.game-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.score {
+  font-size: 24px;
+  color: var(--primary);
+  margin: 10px 0;
+}
+
+.game-board {
+  border: 2px solid var(--secondary);
+  background-color: rgba(31, 97, 141, 0.1);
+  display: grid;
+  gap: 1px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cell {
+  width: var(--grid-size);
+  height: var(--grid-size);
+  border-radius: 2px;
+}
+
+.snake {
+  background-color: var(--primary);
+  border-radius: 4px;
+}
+
+.food {
+  background-color: var(--accent);
+  border-radius: 50%;
+}
+
+.controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  background-color: var(--secondary);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.start {
+  background-color: var(--primary);
+}
+
+.btn.reset {
+  background-color: var(--accent);
+  color: #333;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  :root {
+    --grid-size: 15px;
+  }
+
+  .game-container {
+    padding: 10px;
+  }
+
+  .controls {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }
 
 .App {

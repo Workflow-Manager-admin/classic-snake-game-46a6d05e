@@ -1,47 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import GameBoard from './components/GameBoard';
+import GameControls from './components/GameControls';
+import { useSnakeGame } from './hooks/useSnakeGame';
 
 // PUBLIC_INTERFACE
 function App() {
-  const [theme, setTheme] = useState('light');
-
-  // Effect to apply theme to document element
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  // PUBLIC_INTERFACE
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
+  const BOARD_SIZE = 20;
+  const {
+    snake,
+    food,
+    score,
+    isPlaying,
+    gameOver,
+    startGame,
+    pauseGame,
+    resetGame
+  } = useSnakeGame(BOARD_SIZE);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button 
-          className="theme-toggle" 
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-        >
-          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-        </button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Current theme: <strong>{theme}</strong>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="game-container">
+      <div className="game-header">
+        <h1>Snake Game</h1>
+        <div className="score">Score: {score}</div>
+        {gameOver && <div className="score">Game Over!</div>}
+      </div>
+
+      <GameBoard
+        snake={snake}
+        food={food}
+        boardSize={BOARD_SIZE}
+      />
+
+      <GameControls
+        isPlaying={isPlaying}
+        onStart={startGame}
+        onPause={pauseGame}
+        onReset={resetGame}
+      />
+
+      <div className="instructions" style={{ marginTop: '20px', textAlign: 'center' }}>
+        <p>Use arrow keys or WASD to control the snake</p>
+      </div>
     </div>
   );
 }
